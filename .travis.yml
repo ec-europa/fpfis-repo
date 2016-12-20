@@ -7,8 +7,8 @@ env:
   matrix:
     - EL=6
     - EL=7
-  global:
-    - ./build-docker ${EL} ${TRAVIS_BRANCH}
+script:
+    - ./build-docker.sh ${EL} ${TRAVIS_BRANCH}
 after_failure:
   - tail -n 300 SRPMS/*log
   - tail -n 300 RPMS/*log
