@@ -1,0 +1,5 @@
+[fpfis-repo]
+name=FPFIS repo
+baseurl=https://repo.ne-dev.eu/el/7/
+enabled=1
+gpgcheck=0
