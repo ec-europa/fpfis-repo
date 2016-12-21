@@ -7,8 +7,8 @@ See https://travis-ci.org/ec-europa/fpfis-repo-dev/builds
 ### Rules
 
 - ALWAYS start a new package from master ```git checkout master && git checkout -b package```
-- ALWAYS merge your package back to master when you're done with it ```git commit && git checkout master && git merge --no-commit package```
-- ALWAYS merge master to your package before working on it ```git checkout package && git merge --no-commit master```
+- ALWAYS merge your package back to master when you're done with it ```git commit && git checkout master && git merge package```
+- ALWAYS merge master to your package before working on it ```git checkout package && git merge master```
 - ALWAYS use a descriptive commit message :
 
 ```
