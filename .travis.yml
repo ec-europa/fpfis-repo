@@ -1,15 +1,17 @@
 language: generic
 services:
-- docker
+  - docker
 env:
   matrix:
   - EL=6
   - EL=7
 script:
-- "./build-docker.sh ${EL} ${TRAVIS_BRANCH}"
+  - "./build-docker.sh ${EL} ${TRAVIS_BRANCH}"
+after_success:
+  - find RPMS SRPMS|grep "\.rpm$"
 after_failure:
-- tail -n 300 SRPMS/*log
-- tail -n 300 RPMS/*log
+  - tail -n 500 SRPMS/*log
+  - tail -n 500 RPMS/*log
 notifications:
   slack:
     secure: F1DFVdK8k7Gf0KppcV9IRq5muVGBinC40vqju2rMqQ2NgpvLP8WZzZ7VrIDC0aTRqT+vsHWeS0o/nRnvz3Kry6dE8qXXW9TOeE2VGpb6IOtayJzGgUq2qLusfpjfWjizNkWQvLMUmvNANZWoepKXyJiYLcR1dobmkVGC7bR5YZvQ05Z1Msq4FOcFymhHsYFfZJwyHkRjnRQsY54PguptZFgl5DH/3iq6hVjmLGArlIUIaQEBVcSGdFJN9pIehNlBVVwePtyt88LKoS7xFrC/yDJxgeyjylSocxqhrxxEMxOL6SN47WhRZcg0zW4/ct13iO/hCOjF5lCSN84zqKSf5OLZgyIcvKAJ9iQ1800b7MjiCIfO8TP8SBkQ6QjFdecv1oY0HD0sVt2f6anHbR0EYFMzfoQBHmJDvELimBVHTZwZ65L4FOIO88vkRv+lA3zTcfjjnHvjFZOWdDc3EbqYYy5+IJ49ZzkBh58Uzx4juEGb3gqBjGzUXUDyEyWAHnZkXpwtlw7goQ+pnaU7e2bkEF7dxo76e/sTU4OvC7qqtLJAKOAM4MA2E9n0Se7zhzbfs4DHY1FayLF2/OgopI3446mdaE7NA4MWbmql8oub70qTaQFmhzgyA2BZ+Q3gQuIqGoHBBlDJH4/hAbBaQTU2vZWSf/XI6V0Cn1woAH3RxZQ=
