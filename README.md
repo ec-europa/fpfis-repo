@@ -24,7 +24,7 @@ php56e 5.5.29-3
 
 - Fork the repo on your own user account
 - Clone your own repo
-- Add fpfis-repo as "publish" remote with ```git remote add publish git@github.com:ec-europa.git```
+- Add fpfis-repo as "publish" remote with ```git remote add publish git@github.com:ec-europa/fpfis-repo.git```
 
 #### Create a package
 
