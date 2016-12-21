@@ -1,0 +1,4 @@
+RPMS/*.rpm
+SRPMS/*.rpm
+SRPMS/*.log
+RPMS/*.log
