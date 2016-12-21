@@ -12,7 +12,7 @@ License:        GPLv2
 
 URL:            https://github.com/ec-europa/fpfis-repo
 Source0:        fpfis-repo-7.repo
-Source1:        FPFIS-REPO-kEY 
+Source1:        FPFIS-REPO-KEY 
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}%{version}
 
