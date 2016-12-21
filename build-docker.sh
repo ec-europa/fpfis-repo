@@ -36,12 +36,12 @@ fi
 
 # Create container if does not exists :
 if [ -z $(docker ps -qaf name=${CONTAINER}) ] ; then
-  docker create --privileged=true --name ${CONTAINER} -v $(pwd):/mock/build fpfis/mock bash -c 'tail -f /mock/build/{S,}RPMS/*.log'
+  docker create --privileged=true --name ${CONTAINER} -v $(pwd):/mock/build fpfis/mock bash -c "while /bin/true; do sleep 10 ; uptime; done"
 fi
 
 # Start container if not running 
 if [ "$(docker inspect -f {{.State.Running}}  ${CONTAINER})" != "true" ]; then
-    docker start ${CONTAINER} 
+    docker start -a ${CONTAINER} &
     echo "Building container started : ${CONTAINER}"
     echo "Use \"docker stop ${CONTAINER}\" when you're done working on this package"
     sleep 1
