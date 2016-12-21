@@ -52,4 +52,4 @@ echo "Building ${PACKAGE}..."
 docker exec ${CONTAINER} spectool -g -C /mock/build/SOURCES/${PACKAGE} /mock/build/SPECS/${SPECFILE}
 docker exec -u ${UID} ${CONTAINER}  /usr/bin/mock -r fpfis-${EL}-x86_64 --spec=/mock/build/SPECS/${SPECFILE} --sources=/mock/build/SOURCES/${PACKAGE} --resultdir=/mock/build/SRPMS --buildsrpm
 docker exec -u ${UID} ${CONTAINER} /usr/bin/mock --clean -r fpfis-${EL}-x86_64  -D "dist .${DIST}" --resultdir=/mock/build/RPMS --rebuild /mock/build/SRPMS/$(ls -1utr SRPMS/|grep ^${PACKAGE}-.*src\.rpm$|head -1)
-docker stop ${CONTAINER} -f
+docker stop ${CONTAINER}

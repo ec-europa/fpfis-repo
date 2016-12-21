@@ -1,5 +1,5 @@
 Name:           fpfis-repo
-Version:        6
+Version:        7 
 Release:        1%{?dist} 
 Summary:        FPFIS Packages for Enterprise Linux repository configuration
 
@@ -11,10 +11,9 @@ License:        GPLv2
 # within this srpm.
 
 URL:            https://github.com/ec-europa/fpfis-repo
-Source1:        fpfis-%{version}.repo
-Source2:        FPFIS-REPO-kEY 
+Source0:        fpfis-repo-7.repo
+Source1:        FPFIS-REPO-kEY 
 BuildArch:      noarch
-Requires:       redhat-release >=  l
 BuildRoot:      %{_tmppath}/%{name}-%{version}%{version}
 
 %description
@@ -31,12 +30,12 @@ GPG key as well as configuration for yum.
 rm -rf %{buildroot} 
 
 #GPG Key
-install -Dpm 644 %{SOURCE0} \
+install -Dpm 644 %{SOURCE1} \
     %{buildroot}%{_sysconfdir}/pki/rpm-gpg/FPFIS-REPO-KEY
 
 # yum
 install -dm 755 %{buildroot}%{_sysconfdir}/yum.repos.d
-install -pm 644 %{SOURCE1}  \
+install -pm 644 %{SOURCE0}  \
     %{buildroot}%{_sysconfdir}/yum.repos.d/fpfis.repo
 
 %clean
@@ -48,7 +47,7 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/rpm-gpg/*
 
 %changelog
-* Tue Dec 20 2016 Gregory Boddin <gregory@siwhine.net> - 6-1
+* Tue Dec 20 2016 Gregory Boddin <gregory@siwhine.net> - 7-1
 - Created package for easy install on RHELs
  
 * Mon Dec 16 2013 Dennis Gilmore <dennis@ausil.us> - 6-0.1

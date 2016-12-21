@@ -11,10 +11,9 @@ License:        GPLv2
 # within this srpm.
 
 URL:            https://github.com/ec-europa/fpfis-repo
-Source1:        fpfis.repo
-Source2:        FPFIS-REPO-kEY 
+Source0:        fpfis-repo-6.repo
+Source1:        FPFIS-REPO-KEY 
 BuildArch:      noarch
-Requires:       redhat-release >=  l
 BuildRoot:      %{_tmppath}/%{name}-%{version}%{version}
 
 %description
@@ -31,12 +30,12 @@ GPG key as well as configuration for yum.
 rm -rf %{buildroot} 
 
 #GPG Key
-install -Dpm 644 %{SOURCE0} \
+install -Dpm 644 %{SOURCE1} \
     %{buildroot}%{_sysconfdir}/pki/rpm-gpg/FPFIS-REPO-KEY
 
 # yum
 install -dm 755 %{buildroot}%{_sysconfdir}/yum.repos.d
-install -pm 644 %{SOURCE1}  \
+install -pm 644 %{SOURCE0}  \
     %{buildroot}%{_sysconfdir}/yum.repos.d/fpfis.repo
 
 %clean
