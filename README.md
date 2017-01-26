@@ -1,6 +1,6 @@
 # Staging repo to test-build RPM packages
 
-See https://travis-ci.org/ec-europa/fpfis-repo-dev/builds
+See https://travis-ci.org/ec-europa/fpfis-repo/builds
 
 ## Creating and building a package
 
@@ -22,9 +22,7 @@ php56e 5.5.29-3
 
 #### First time
 
-- Fork the repo on your own user account
-- Clone your own repo
-- Add fpfis-repo as "publish" remote with ```git remote add publish git@github.com:ec-europa/fpfis-repo.git```
+- Fork the repo 
 
 #### Create a package
 
@@ -38,10 +36,11 @@ php56e 5.5.29-3
 
 #### Build/test a package on Travis
 
-- Push to get travis build it with ```git push``` (you need a Travis account)
+- Push to get travis build it with ```git push```
 
 #### Publish a package from Travis
-- Push to ```ec-europa:fpfis-repo``` publish when ready with ```git push publish```
+- Tag your commit with ```<package>_<version>```
+- Push to ```ec-europa:fpfis-repo``` when ready with ```git push origin <package>_<version>```
 
 
 ## Building the mock docker image
@@ -49,7 +48,3 @@ php56e 5.5.29-3
 ```
 docker build -t fpfis/mock conf/
 ```
-
-## TODO
-
-deploy section of travis script + http server setup
