@@ -8,7 +8,7 @@ set -e
 
 EL=$1
 DIST=el${EL}
-PACKAGE=$2
+PACKAGE=$(echo "$2"|cut -d_ -f1)
 CONTAINER=${PACKAGE}_${EL}_centos_build
 
 if [ "${PACKAGE}" == "master" ] || [ "${PACKAGE}" == "fpfis-repo" ]; then
@@ -19,6 +19,8 @@ else
 fi
 
 echo "Using container name : ${CONTAINER}"
+
+[ ! -d SOURCES/${PACKAGE} ] && mkdir SOURCES/${PACKAGE}
 
 # reset log files :
 cat /dev/null > RPMS/build.log
