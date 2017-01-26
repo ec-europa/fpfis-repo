@@ -21,7 +21,7 @@ before_deploy:
   - chmod 600 deploy.key
 deploy:
   provider: script
-  script: RSYNC_PATH=/el${EL}/ ./deploy.sh
+  script: RSYNC_PATH=/el/${EL}/ ./deploy.sh
   on:
     tags: true
 notifications:
