@@ -2,10 +2,6 @@ language: generic
 services:
   - docker
 env:
-  global:
-    - RSYNC_HOST=52.211.101.194
-    - RSYNC_USER=rpm-incoming
-    - RSYNC_PORT=2222
   matrix:
     - EL=6
     - EL=7
