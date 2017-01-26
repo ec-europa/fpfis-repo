@@ -20,6 +20,8 @@ fi
 
 echo "Using container name : ${CONTAINER}"
 
+[ ! -d SOURCES/${PACKAGE} ] && mkdir SOURCES/${PACKAGE}
+
 # reset log files :
 cat /dev/null > RPMS/build.log
 cat /dev/null > RPMS/root.log
