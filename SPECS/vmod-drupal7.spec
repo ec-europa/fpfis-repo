@@ -4,7 +4,7 @@ Version: 0.1
 Release: 1%{?dist}
 License: BSD
 Group: System Environment/Daemons
-Source0: https://git.kindwolf.org/libvmod-drupal7/tarball/4.0
+Source0: vmod-drupal7-0.1.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: varnish >= 4.0.2
 BuildRequires: make, autoconf, automake, libtool
