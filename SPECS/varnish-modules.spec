@@ -1,8 +1,8 @@
-%define commit 47e8ef0e714eac16d6b699a53fed043f441723a4 
+%define commit daa4f1da5e34b274ca533766c5730696b1db7ca7 
 Summary: Collection of Varnish Cache modules (VMODs) by Varnish Software
 Name: varnish-modules
 Version: 0.10.0
-Release: 3%{?dist} 
+Release: 4%{?dist} 
 Group: System Environment/Libraries
 Packager: Edge Repo 
 License: GPL 
