@@ -9,6 +9,7 @@ Release: 1%{?dist}
 License: GPLv2 with exceptions
 Group: Applications/Databases
 Source0: http://prdownloads.sourceforge.net/virtuoso/%{name}-%{version}.tar.gz
+Source1: virtuoso.init
 URL: http://virtuoso.sourceforge.net
 Distribution: CentOS
 Vendor: OpenLink Software, Inc.
@@ -77,9 +78,8 @@ touch %{_builddir}/%{name}-%{version}/docsrc/html_virt/test.html
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
-mkdir -p %{buildroot}/etc/init.d/
-cp %{buildroot}/../../SOURCES/virtuoso/virtuoso %{buildroot}/etc/init.d/
-chmod a+x %{buildroot}/etc/init.d/virtuoso
+install -m 755 -d $RPM_BUILD_ROOT%{_initrddir}
+install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/virtuoso
 
 mkdir -p %{buildroot}%{_sysconfdir}/virtuoso
 mv %{buildroot}%{_var}/lib/virtuoso/db/virtuoso.ini %{buildroot}%{_sysconfdir}/virtuoso/
@@ -119,7 +119,7 @@ rm -rf %{buildroot}
 %{_var}/lib/virtuoso/db/
 %{_var}/lib/virtuoso/vsp/
 %{_bindir}/virt_mail
-/etc/init.d/virtuoso
+%{_initrddir}/virtuoso
 %{_bindir}/isql
 
 %files drivers
@@ -131,3 +131,5 @@ rm -rf %{buildroot}
 %{_docdir}/virtuoso/
 
 %changelog
+* Thu Jan 26 2017 Gregory Boddin <gregory@siwhine.net>
+- Updated init script install
