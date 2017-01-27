@@ -9,7 +9,7 @@
 Summary:      Extension to work with the Memcached caching daemon
 Name:         %{php_base}-pecl-%{pecl_name}
 Version:      2.2.0
-Release:      1%{?dist}
+Release:      2%{?dist}
 # memcached is PHP, FastLZ is MIT
 License:      PHP and MIT
 Group:        Development/Languages
@@ -34,7 +34,6 @@ BuildRequires: memcached
 Requires(post): %{php_base}-pear
 Requires(postun): %{php_base}-pear
 
-Requires:     %{php_base}-json%{?_isa}
 Requires:     %{php_base}-pecl-igbinary%{?_isa}
 Requires:     %{php_base}(zend-abi) = %{php_zend_api}
 Requires:     %{php_base}(api) = %{php_core_api}
@@ -236,6 +235,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 27 2017 Gregory Boddin <gregory@siwhine.net> - 2.2.0-2
+- Fixed json depedency
+
 * Wed Jan 18 2017 Gregory Boddin <gregory@siwhine.net> - 2.2.0-1
 - Imported from IUS
 
