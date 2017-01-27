@@ -17,7 +17,6 @@ URL:          http://pecl.php.net/package/%{pecl_name}
 Source0:      http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 BuildRequires: %{php_base}-devel
 BuildRequires: %{php_base}-pear
-BuildRequires: %{php_base}-pecl-jsonc-devel
 BuildRequires: %{php_base}-pecl-igbinary-devel
 #BuildRequires: libevent-devel  > 2
 BuildRequires: libevent-devel
