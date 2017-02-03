@@ -27,7 +27,7 @@
 %global gh_project   redis
 
 Name:             redis
-Version:          3.2.6
+Version:          3.2.7
 Release:          1%{?dist} 
 Summary:          A persistent key-value database
 
@@ -255,6 +255,9 @@ fi
 
 
 %changelog
+* Fri Feb 3 2017 Gregory Boddin <gregory@siwhine.net> - 3.2.7-1
+- Redis 3.2.7 - Release date: Fri Feb 03 2017
+
 * Tue Aug  2 2016 Remi Collet <remi@fedoraproject.org> - 3.2.3-1
 - Redis 3.2.3 - Release date: Tue Aug 02 10:55:24 CEST 2016
 - Upgrade urgency MODERATE: Fix replication delay and redis-cli
