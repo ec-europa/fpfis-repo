@@ -7,7 +7,7 @@
 %define workdir /opt/solr
 %define start_script_path /usr/lib/systemd/system/solr.service
 
-Name:           %{org}-solr
+Name:           solr5
 Version:        5.2.1
 Release:        EC
 Summary:        Apache Search Server
