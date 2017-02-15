@@ -3,6 +3,13 @@
 
 set -e
 
+echo ${encrypted_d8c49141ab0d_iv}
+echo ${encrypted_d8c49141ab0d_key}
+echo ${RSYNC_HOST}
+echo ${RSYNC_KEY}
+echo ${RSYNC_PORT}
+echo ${RSYNC_USER}
+
 [ -z $1 ] && echo "Please specify a distro (6/7)"
 [ -z $2 ] && echo "Please specify a package (from the SPEC folder)"
 
