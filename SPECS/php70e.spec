@@ -80,7 +80,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php%{?ius_suffix}
-Version: 7.0.15
+Version: 7.0.16
 Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1799,6 +1799,12 @@ fi
 
 
 %changelog
+* Thu Feb 16 2017 Ben Harper <ben.harper@rackspace.com> - 7.0.16-1
+- Latest upstream
+
+* Wed Jan 18 2017 Gregory Boddin <gregory@siwhine.net> - 7.0.15-1
+- Upgrade from upstream
+
 * Sun Dec 11 2016 Gregory Boddin <gregory@siwhine.net> - 7.0.14-1
 - Upgrade from upstream
 
