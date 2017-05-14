@@ -13,7 +13,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.25
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://httpd.apache.org/
 Source0: http://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: index.html
@@ -157,7 +157,7 @@ Group: System Environment/Daemons
 Summary: SSL/TLS module for the Apache HTTP Server
 Epoch: 1
 BuildRequires: openssl-devel
-Requires(post): openssl, /bin/cat, hostname
+Requires(post): openssl, /bin/cat
 Requires(pre): httpd-filesystem
 Requires: httpd = 0:%{version}-%{release}, httpd-mmn = %{mmnisa}
 Obsoletes: stronghold-mod_ssl
