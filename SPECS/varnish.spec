@@ -3,7 +3,7 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 5.0.0 
+Version: 5.1.2
 #Release: 0.20140328%{?v_rc}%{?dist}
 Release: 1%{?v_rc}%{?dist}
 License: BSD
