@@ -22,6 +22,8 @@ Source8: varnishlog.service
 Source9: varnishncsa.initrc
 Source10: varnishncsa.service
 
+Patch1: varnish512-python-epel.patch
+
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: automake
 BuildRequires: autoconf
@@ -103,6 +105,7 @@ Documentation files for %name
 #%setup -q -n varnish-trunk
 cp %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} .
 cp %{SOURCE6} %{SOURCE7} %{SOURCE8} %{SOURCE9} %{SOURCE10} .
+%patch1 -p1 -b .varnish512-python-epel
 
 %build
 # No pkgconfig/libpcre.pc in rhel4
