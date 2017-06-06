@@ -1,42 +1,77 @@
-diff --git a/configure.ac b/configure.ac
-index 4413e92ba..3f057e3a2 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -345,10 +345,19 @@ else
- fi
- 
- AM_MISSING_HAS_RUN
-+AC_CHECK_PROGS(PYTHON, [python3 python3.1 python3.2 python2.7 python2 python], "no")
-+if test "x$PYTHON" = "xno"; then
-+  AC_MSG_ERROR([Python is needed to build Varnish, please install python 2.7 or later.])
-+fi
- 
--AM_PATH_PYTHON([2.7], [], [
--	AC_MSG_ERROR([Python 2.7 or later is needed to build Varnish.])
--])
-+py_ver=`"$PYTHON" -V 2>&1`
-+case "$py_ver" in
-+Python?3.* | Python?2.[7-9].*)
-+	;;
-+*)
-+	AC_MSG_ERROR([Python >= 2.7 is required])
-+	;;
-+esac
- 
- AC_CHECK_DECL([SO_ACCEPTFILTER],
-     AC_DEFINE(HAVE_ACCEPT_FILTERS,1,[Define to 1 if you have accept filters]),
 diff --git a/varnish.m4 b/varnish.m4
-index 874c0554d..f3894ce4d 100644
+index 400e08712..04a023d17 100644
 --- a/varnish.m4
 +++ b/varnish.m4
-@@ -114,8 +114,8 @@ AC_DEFUN([_VARNISH_VMOD_CONFIG], [
- 	AC_REQUIRE([AC_PROG_CPP])
- 	AC_REQUIRE([AC_PROG_CPP_WERROR])
+@@ -129,8 +129,8 @@ AC_DEFUN([_VARNISH_CHECK_DEVEL], [
+ # ---------------------
+ AC_DEFUN([_VARNISH_CHECK_PYTHON], [
  
 -	AM_PATH_PYTHON([2.7], [], [
--		AC_MSG_ERROR([Python 2.7 or later is needed to build VMODs.])
+-		AC_MSG_ERROR([Python >= 2.7 is required.])
 +	AM_PATH_PYTHON([2.6], [], [
-+		AC_MSG_ERROR([Python is needed to build VMODs.])
++		AC_MSG_ERROR([Python >= 2.6 is required.])
  	])
  
- 	AS_IF([test -z "$RST2MAN"], [
+ ])
+--- a/configure.orig	2017-06-06 16:32:22.531471520 +0200
++++ b/configure	2017-06-06 16:33:22.683472057 +0200
+@@ -13545,13 +13545,13 @@
+ 
+         if test -n "$PYTHON"; then
+       # If the user set $PYTHON, use it and don't search something else.
+-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $PYTHON version is >= 2.7" >&5
+-$as_echo_n "checking whether $PYTHON version is >= 2.7... " >&6; }
++      { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $PYTHON version is >= 2.6" >&5
++$as_echo_n "checking whether $PYTHON version is >= 2.6... " >&6; }
+       prog="import sys
+ # split strings by '.' and convert to numeric.  Append some zeros
+ # because we need at least 4 digits for the hex conversion.
+ # map returns an iterator in Python 3.0 and a list in 2.x
+-minver = list(map(int, '2.7'.split('.'))) + [0, 0, 0]
++minver = list(map(int, '2.6'.split('.'))) + [0, 0, 0]
+ minverhex = 0
+ # xrange is not present in Python 3.0 and range returns an iterator
+ for i in list(range(0, 4)): minverhex = (minverhex << 8) + minver[i]
+@@ -13572,8 +13572,8 @@
+     else
+       # Otherwise, try each interpreter until we find one that satisfies
+       # VERSION.
+-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for a Python interpreter with version >= 2.7" >&5
+-$as_echo_n "checking for a Python interpreter with version >= 2.7... " >&6; }
++      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for a Python interpreter with version >= 2.6" >&5
++$as_echo_n "checking for a Python interpreter with version >= 2.6... " >&6; }
+ if ${am_cv_pathless_PYTHON+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+@@ -13584,7 +13584,7 @@
+ # split strings by '.' and convert to numeric.  Append some zeros
+ # because we need at least 4 digits for the hex conversion.
+ # map returns an iterator in Python 3.0 and a list in 2.x
+-minver = list(map(int, '2.7'.split('.'))) + [0, 0, 0]
++minver = list(map(int, '2.6'.split('.'))) + [0, 0, 0]
+ minverhex = 0
+ # xrange is not present in Python 3.0 and range returns an iterator
+ for i in list(range(0, 4)): minverhex = (minverhex << 8) + minver[i]
+@@ -13651,7 +13651,7 @@
+ 
+   if test "$PYTHON" = :; then
+ 
+-		as_fn_error $? "Python >= 2.7 is required." "$LINENO" 5
++		as_fn_error $? "Python >= 2.6 is required." "$LINENO" 5
+ 
+   else
+ 
+@@ -13698,11 +13698,11 @@
+     can_use_sysconfig = 0
+ else:
+     can_use_sysconfig = 1
+-# Can't use sysconfig in CPython 2.7, since it's broken in virtualenvs:
++# Can't use sysconfig in CPython 2.6, since it's broken in virtualenvs:
+ # <https://github.com/pypa/virtualenv/issues/118>
+ try:
+     from platform import python_implementation
+-    if python_implementation() == 'CPython' and sys.version[:3] == '2.7':
++    if python_implementation() == 'CPython' and sys.version[:3] == '2.6':
+         can_use_sysconfig = 0
+ except ImportError:
+     pass"
