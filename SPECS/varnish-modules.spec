@@ -1,19 +1,19 @@
-%define commit daa4f1da5e34b274ca533766c5730696b1db7ca7 
+%define commit d3348f82a20ab18530d187581cb08ff8714a7cbc
 Summary: Collection of Varnish Cache modules (VMODs) by Varnish Software
 Name: varnish-modules
-Version: 0.10.0
-Release: 4%{?dist} 
+Version: 0.12.1
+Release: 1%{?dist} 
 Group: System Environment/Libraries
 Packager: Edge Repo 
 License: GPL 
-Requires: varnish-libs >= 5.0
-BuildRequires: autoconf, varnish-libs-devel >= 5.0
+Requires: varnish-libs >= 5.1
+BuildRequires: autoconf, varnish-libs-devel >= 5.1
 BuildRequires: python-docutils, libtool, make, gcc-c++
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root
 Source0:       https://github.com/varnish/varnish-modules/archive/%{commit}.tar.gz
 
 %description
-Collection of Varnish Cache 5.0 modules (VMODs) by Varnish Software
+Collection of Varnish Cache 5.1 modules (VMODs) by Varnish Software
  - vmod_cookie
  - vmod_header
  - vmod_saintmode
@@ -22,6 +22,7 @@ Collection of Varnish Cache 5.0 modules (VMODs) by Varnish Software
  - vmod_var
  - vmod_vsthrottle
  - vmod_xkey
+ - vmod_bodyaccess
 
 %prep
 %setup -q -n varnish-modules-%{commit}
