@@ -1,7 +1,7 @@
 Summary: Drupal 7 VMOD for Varnish
 Name: vmod-drupal7
 Version: 0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: System Environment/Daemons
 Source0: vmod-drupal7-0.1.tar.gz
@@ -39,5 +39,8 @@ Drupal 7 VMOD provides Drupal-related functions within Varnish.
 %{_mandir}/man?/*
 
 %changelog
+* Tue Jun 06 2017 Gregory Boddin <gregory@siwhine.net> - 0.1-2
+- Bumping revision for rebuild vs varnish 5.1
+
 * Wed Feb 04 2015 Xavier Guerrin <xavier@tuxfamily.org> - 0.1-0.20150204
 - Initial version.
