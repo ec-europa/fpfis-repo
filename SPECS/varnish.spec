@@ -315,6 +315,10 @@ fi
 %postun libs -p /sbin/ldconfig
 
 %changelog
+* Tue Jun 06 2017 Gregory Boddin <gregory@siwhine.net> - 5.1.2-1
+- Updated from upstream
+- Patched configure since EL's python 2.6 works as intended
+
 * Wed Dec 21 2016 Gregory Boddin <gregory@siwhine.net> - 5.0.0-1
 - Imported from old-repo
 - Updated upstream
