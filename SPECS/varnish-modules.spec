@@ -1,4 +1,3 @@
-%define commit d3348f82a20ab18530d187581cb08ff8714a7cbc
 Summary: Collection of Varnish Cache modules (VMODs) by Varnish Software
 Name: varnish-modules
 Version: 0.12.1
@@ -10,7 +9,7 @@ Requires: varnish-libs >= 5.1
 BuildRequires: autoconf, varnish-libs-devel >= 5.1
 BuildRequires: python-docutils, libtool, make, gcc-c++
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root
-Source0:       https://github.com/varnish/varnish-modules/archive/%{commit}.tar.gz
+Source0:       https://download.varnish-software.com/varnish-modules/varnish-modules-%{version}.tar.gz
 
 %description
 Collection of Varnish Cache 5.1 modules (VMODs) by Varnish Software
@@ -25,13 +24,7 @@ Collection of Varnish Cache 5.1 modules (VMODs) by Varnish Software
  - vmod_bodyaccess
 
 %prep
-%setup -q -n varnish-modules-%{commit}
-libtoolize -cfi 
-[ ! -d m4 ] && mkdir m4
-aclocal -I m4 -I $(pkg-config --variable=datarootdir varnishapi 2>/dev/null)/aclocal
-autoheader
-automake --add-missing --copy --foreign --force
-autoconf
+%setup -q -n varnish-modules-%{version}
 %configure
 
 %build
