@@ -14,7 +14,7 @@
 %global ini_name  40-%{extname}.ini
 %global php_base  php56e
 
-Summary:        Replacement for the standard PHP serializer
+Summary:        PHP YAML parser/emiter
 Name:           %{php_base}-pecl-%{extname}
 Version:        1.3.1 
 Release:        1%{?dist}
@@ -25,7 +25,6 @@ Group:          System Environment/Libraries
 URL:            http://pecl.php.net/package/yaml
 BuildRequires:  %{php_base}-pear
 BuildRequires:  %{php_base}-devel
-BuildRequires:  %{php_base}-pecl-apcu-devel >= 3.1.7
 
 Requires(post): %{php_base}-pear
 Requires(postun): %{php_base}-pear
@@ -154,11 +153,6 @@ popd
 %check
 # drop extension load from phpt
 sed -e '/^extension=/d' -i ?TS/tests/*phpt
-
-# APC required for test 045
-if [ -f %{php_extdir}/apcu.so ]; then
-  MOD="-d extension=apcu.so"
-fi
 
 : simple NTS module load test, without APC, as optional
 %{__php} --no-php-ini \
