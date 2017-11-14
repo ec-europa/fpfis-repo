@@ -1,0 +1,29 @@
+matrix:
+  DISTRO:
+    - fpfis-6-x86_64
+    - fpfis-7-x86_64
+  PACKAGE:
+    - ${DRONE_BRANCH##*/}
+
+workspace:
+  base: /mock
+  path: build
+
+pipeline:
+  download-pakcage:
+    image: mock
+    commands:
+      - "[ ! -d SOURCES/${PACKAGE} ] && mkdir -p SOURCES/${PACKAGE}"
+      - spectool -g -C /mock/build/SOURCES/${PACKAGE} /mock/build/SPECS/${PACKAGE}.spec
+
+  build-srpm:
+    image: mock
+    privileged: true
+    commands:
+      - /usr/bin/mock -r ${DISTRO} --spec=SPECS/${PACKAGE}.spec --sources=/mock/build/SOURCES/${PACKAGE} --resultdir=/mock/build/SRPMS --buildsrpm
+
+  built-rpm:
+    image: mock
+    privileged: true
+    commands:
+      - /usr/bin/mock --clean -r ${DISTRO} --resultdir=/mock/build/RPMS --rebuild /mock/build/SRPMS/$(ls -1utr SRPMS/|grep ^${PACKAGE}-.*src\.rpm$|head -1)
