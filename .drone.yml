@@ -14,7 +14,7 @@ pipeline:
     image: alpine:latest
     commands:
       - mkdir -pm 777 RPMS SRPMS SOURCES/${PACKAGE}
-      - chmod 777 SOURCES/${PACKAGE}
+      - chmod -R 777 SOURCES/${PACKAGE}
 
   download-package:
     image: fpfis/mock-beta
