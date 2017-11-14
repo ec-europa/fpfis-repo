@@ -35,5 +35,10 @@ pipeline:
 
   show-result:
     image: alpine:latest
+    when:
+      status: [ success, failure ]
     commands:
       - ls -lha SRPMS RPMS
+      - tail -200 SRPMS/*log
+      - tail -200 RPMS/*log
+
