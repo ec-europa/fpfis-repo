@@ -10,6 +10,11 @@ workspace:
   path: build
 
 pipeline:
+  prepare-dir:
+    image: alpine:latest
+    commands:
+      - mkdir -m 777 SOURCES RPMS SRPMS
+
   download-package:
     image: fpfis/mock-beta
     commands:
