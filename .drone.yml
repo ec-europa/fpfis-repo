@@ -32,3 +32,8 @@ pipeline:
     privileged: true
     commands:
       - /usr/bin/mock --clean -r ${DISTRO} --resultdir=/mock/build/RPMS --rebuild /mock/build/SRPMS/$(ls -1utr SRPMS/|grep ^${PACKAGE}-.*src\.rpm$|head -1)
+
+  show-result:
+    image: alpine:latest
+    commands:
+      - ls -lha SRPMS RPMS
