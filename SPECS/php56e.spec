@@ -110,7 +110,7 @@ Group: Development/Languages
 URL: http://www.php.net/
 
 #Source0: https://github.com/php/php-src/archive/php-%{version}.tar.gz 
-Source0: http://www.php.net/distributions/php-%%{version}.tar.xz
+Source0: http://www.php.net/distributions/php-%{version}.tar.xz
 Source1: php.conf
 Source2: php.ini
 Source3: macros.php
