@@ -929,7 +929,7 @@ support for using the enchant library to PHP.
 
 
 %prep
-%setup -q -n php-src-php-%{version}%{?rcver}
+%setup -q -n php-%{version}%{?rcver}
 
 # ensure than current httpd use prefork MPM.
 httpd -V  | grep -q 'threaded:.*yes' && exit 1
