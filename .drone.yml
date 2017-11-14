@@ -10,7 +10,7 @@ workspace:
   path: build
 
 pipeline:
-  download-pakcage:
+  download-package:
     image: mock
     commands:
       - "[ ! -d SOURCES/${PACKAGE} ] && mkdir -p SOURCES/${PACKAGE}"
