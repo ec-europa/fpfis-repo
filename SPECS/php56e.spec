@@ -109,7 +109,8 @@ License: PHP and Zend and BSD and JSON
 Group: Development/Languages
 URL: http://www.php.net/
 
-Source0: https://github.com/php/php-src/archive/php-%{version}.tar.gz 
+#Source0: https://github.com/php/php-src/archive/php-%{version}.tar.gz 
+Source0: http://www.php.net/distributions/php-%{version}.tar.xz
 Source1: php.conf
 Source2: php.ini
 Source3: macros.php
@@ -928,7 +929,7 @@ support for using the enchant library to PHP.
 
 
 %prep
-%setup -q -n php-src-php-%{version}%{?rcver}
+%setup -q -n php-%{version}%{?rcver}
 
 # ensure than current httpd use prefork MPM.
 httpd -V  | grep -q 'threaded:.*yes' && exit 1
@@ -1082,7 +1083,9 @@ PEAR_INSTALLDIR=%{_datadir}/pear; export PEAR_INSTALLDIR
 
 # Shell function to configure and build a PHP tree.
 build() {
-
+# Old/recent bison version seems to produce a broken parser;
+# upstream uses GNU Bison 2.3. Workaround:
+mkdir Zend && cp ../Zend/zend_{language,ini}_{parser,scanner}.[ch] Zend
 # Always static:
 # date, ereg, filter, libxml, reflection, spl: not supported
 # hash: for PHAR_SIG_SHA256 and PHAR_SIG_SHA512
