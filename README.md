@@ -1,32 +1,19 @@
 # Staging repo to test-build RPM packages
 
-See https://travis-ci.org/ec-europa/fpfis-repo/builds
+See https://drone.fpfis.eu/ec-europa/fpfis-repo
 
 ## Creating and building a package
 
 ### Rules
 
-- ALWAYS start a new package from master ```git checkout master && git checkout -b package```
-- ALWAYS merge your package back to master when you're done with it ```git commit && git checkout master && git merge package```
-- ALWAYS merge master to your package before working on it ```git checkout package && git merge master```
-- ALWAYS use a descriptive commit message :
-
-```
-php56e 5.5.29-3
-
- - Did this
- - Did that
-```
+- Make sure you start from master.
+- If you need new code from master `git merge master` in your branch 
 
 ### Process
 
-#### First time
-
-- Fork the repo 
-
 #### Create a package
 
-- Create a branch with a ```<package-name>```
+- Create a branch with a```test/<package-name>```
 - Create SPECS/```<package-name>```.spec
 - Create SOURCES/```<package-name>```/.gitkeep
 
@@ -36,15 +23,9 @@ php56e 5.5.29-3
 
 #### Build/test a package on Travis
 
-- Push to get travis build it with ```git push```
+- Push to get drone build it with ```git push```
 
-#### Publish a package from Travis
-- Tag your commit with ```<package>_<version>```
-- Push to ```ec-europa:fpfis-repo``` when ready with ```git push origin <package>_<version>```
+#### Publish a package from Drone 
 
-
-## Building the mock docker image
-
-```
-docker build -t fpfis/mock conf/
-```
+- Merge/create to the release/```<package>```
+- Push to get drone publish the package to the RPM repo
