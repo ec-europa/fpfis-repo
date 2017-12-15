@@ -1,0 +1,90 @@
+From dccdf8c52a7cd7613e4993c320024aa95a20f83f Mon Sep 17 00:00:00 2001
+From: Bryan Davis <bd808@php.net>
+Date: Sat, 4 Jun 2016 14:56:30 -0600
+Subject: [PATCH 1/3] Format timestamps with milliseconds
+
+Emit timestamps as ISO8601 formatted strings including milliseconds. Encoding
+follows https://www.w3.org/TR/NOTE-datetime guidelines as specified by
+http://yaml.org/type/timestamp.html
+
+Fixes bug #71696
+---
+ emit.c                   | 16 ++++++----------
+ tests/yaml_002.phpt      | 14 +++++++-------
+ tests/yaml_emit_004.phpt |  2 +-
+ 3 files changed, 14 insertions(+), 18 deletions(-)
+
+diff --git a/emit.c b/emit.c
+index 623da9b..7f68fc5 100644
+--- a/emit.c
++++ b/emit.c
+@@ -616,23 +616,19 @@ static int y_write_timestamp(
+ 	int status;
+ 	zend_class_entry *clazz = Z_OBJCE_P(data);
+ 	zval *timestamp = { 0 };
+-	zval dtfmt;
++	zval *dtfmt;
+ 
+ 	if (NULL == tag) {
+ 		tag = (yaml_char_t *) YAML_TIMESTAMP_TAG;
+ 		omit_tag = 1;
+ 	}
+ 
+-	/* get iso-8601 format specifier */
+-#if ZEND_MODULE_API_NO >= 20071006
+-	zend_get_constant_ex("DateTime::ISO8601", 17, &dtfmt, clazz, 0 TSRMLS_CC);
+-#else
+-	zend_get_constant_ex("DateTime::ISO8601", 17, &dtfmt, clazz TSRMLS_CC);
+-#endif
+-	/* format date as iso-8601 string */
++	/* format date as iso-8601 string with milliseconds */
++	MAKE_STD_ZVAL(dtfmt);
++	ZVAL_STRING(dtfmt, "Y-m-d\\TH:i:s.uP", 1);
+ 	zend_call_method_with_1_params(&data, clazz, NULL,
+-			"format", &timestamp, &dtfmt);
+-	zval_dtor(&dtfmt);
++			"format", &timestamp, dtfmt);
++	zval_ptr_dtor(&dtfmt);
+ 
+ 	/* emit formatted date */
+ 	status = yaml_scalar_event_initialize(&event, NULL, tag,
+diff --git a/tests/yaml_002.phpt b/tests/yaml_002.phpt
+index 9c3cf6c..520710a 100644
+--- a/tests/yaml_002.phpt
++++ b/tests/yaml_002.phpt
+@@ -25,13 +25,13 @@ $parsed = yaml_parse($yaml);
+ var_dump($parsed == $original);
+ ?>
+ --EXPECT--
+-string(255) "---
+-canonical: 2001-12-15T02:59:43+0000
+-valid iso8601: 2001-12-14T21:59:43-0500
+-alternate iso8601: 2001-12-14T21:59:43-0500
+-space separated: 2001-12-14T21:59:43-0500
+-no time zone (Z): 2001-12-15T02:59:43+0000
+-date (0000:00Z): 2002-12-14T00:00:00+0000
++string(303) "---
++canonical: 2001-12-15T02:59:43.100000+00:00
++valid iso8601: 2001-12-14T21:59:43.100000-05:00
++alternate iso8601: 2001-12-14T21:59:43.100000-05:00
++space separated: 2001-12-14T21:59:43.100000-05:00
++no time zone (Z): 2001-12-15T02:59:43.100000+00:00
++date (0000:00Z): 2002-12-14T00:00:00.000000+00:00
+ ...
+ "
+ bool(true)
+diff --git a/tests/yaml_emit_004.phpt b/tests/yaml_emit_004.phpt
+index 5197a96..9fb5dd7 100644
+--- a/tests/yaml_emit_004.phpt
++++ b/tests/yaml_emit_004.phpt
+@@ -13,6 +13,6 @@ $d = new DateTime('2008-08-03T14:52:10Z');
+ var_dump(yaml_emit($d));
+ ?>
+ --EXPECT--
+-string(33) "--- 2008-08-03T14:52:10+0000
++string(41) "--- 2008-08-03T14:52:10.000000+00:00
+ ...
+ "
+-- 
+2.4.3
+
