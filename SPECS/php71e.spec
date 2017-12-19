@@ -1,4 +1,4 @@
-p8# edge spec file for php71e, forked from
+# edge spec file for php71e, forked from
 # IUS spec file for php70u, forked from
 #
 # Fedora spec file for php
