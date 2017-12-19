@@ -80,8 +80,8 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php71e
-Version: 7.1.8
-Release: 2%{?dist}
+Version: 7.1.9
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -112,7 +112,6 @@ Patch5: php-7.0.0-includedir.patch
 Patch6: php-5.6.3-embed.patch
 Patch7: php-5.3.0-recode.patch
 Patch8: php-7.0.2-libdb.patch
-Patch10: php-sqlite3.patch
 
 # Functional changes
 Patch40: php-7.1.3-dlopen.patch
@@ -127,6 +126,7 @@ Patch46: php-7.0.0-fixheader.patch
 Patch47: php-5.6.3-phpinfo.patch
 
 # Upstream fixes (100+)
+Patch100: php-upstream.patch
 
 # Security fixes (200+)
 
@@ -995,7 +995,6 @@ httpd -V  | grep -q 'threaded:.*yes' && exit 1
 %patch6 -p1 -b .embed
 %patch7 -p1 -b .recode
 %patch8 -p1 -b .libdb
-%patch10 -p1 -b .errstr
 
 %patch40 -p1 -b .dlopen
 %patch42 -p1 -b .systzdata
@@ -1007,6 +1006,7 @@ httpd -V  | grep -q 'threaded:.*yes' && exit 1
 %patch47 -p1 -b .phpinfo
 
 # upstream patches
+%patch100 -p1 -b .up
 
 # security patches
 
@@ -1862,6 +1862,9 @@ fi
 
 
 %changelog
+* Tue Dec 19 2017 Gregory Boddin <gregory@siwhine.net> - 7.1.9-1
+- Updated from IUS
+
 * Wed Aug 23 2017 Gregory Boddin <gregory@siwhine.net> - 7.1.8-2
 - Imported from IUS
 
