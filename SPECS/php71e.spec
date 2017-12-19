@@ -1,4 +1,4 @@
-# edge spec file for php71e, forked from
+p8# edge spec file for php71e, forked from
 # IUS spec file for php70u, forked from
 #
 # Fedora spec file for php
@@ -80,7 +80,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php71e
-Version: 7.1.9
+Version: 7.1.10
 Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -108,6 +108,7 @@ Source50: 10-opcache.ini
 Source51: opcache-default.blacklist
 
 # Build fixes
+Patch1: php-7.1.7-httpd.patch
 Patch5: php-7.0.0-includedir.patch
 Patch6: php-5.6.3-embed.patch
 Patch7: php-5.3.0-recode.patch
@@ -124,9 +125,7 @@ Patch45: php-5.6.3-ldap_r.patch
 Patch46: php-7.0.0-fixheader.patch
 # drop "Configure command" from phpinfo output
 Patch47: php-5.6.3-phpinfo.patch
-
-# Upstream fixes (100+)
-Patch100: php-upstream.patch
+Patch48: php-7.1.9-openssl-load-config.patch
 
 # Security fixes (200+)
 
@@ -988,9 +987,7 @@ support for JavaScript Object Notation (JSON) to PHP.
 %prep
 %setup -q -n php-%{version}%{?rcver}
 
-# ensure than current httpd use prefork MPM.
-httpd -V  | grep -q 'threaded:.*yes' && exit 1
-
+%patch1 -p1 -b .mpmcheck
 %patch5 -p1 -b .includedir
 %patch6 -p1 -b .embed
 %patch7 -p1 -b .recode
@@ -1004,9 +1001,7 @@ httpd -V  | grep -q 'threaded:.*yes' && exit 1
 %endif
 %patch46 -p1 -b .fixheader
 %patch47 -p1 -b .phpinfo
-
-# upstream patches
-%patch100 -p1 -b .up
+%patch48 -p1 -b .loadconf
 
 # security patches
 
@@ -1862,6 +1857,9 @@ fi
 
 
 %changelog
+* Tue Dec 19 2017 Gregory Boddin <gregory@siwhine.net> - 7.1.10-1
+- Updated from IUS
+
 * Tue Dec 19 2017 Gregory Boddin <gregory@siwhine.net> - 7.1.9-1
 - Updated from IUS
 
