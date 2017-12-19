@@ -241,12 +241,7 @@ BuildRequires: libacl-devel
 Requires: php-common%{?_isa} = %{version}-%{release}
 Requires(pre): /usr/sbin/useradd
 %if %{with_systemd}
-BuildRequires: systemd-units
 BuildRequires: systemd-devel
-Requires: systemd-units
-Requires(post): systemd-units
-Requires(preun): systemd-units
-Requires(postun): systemd-units
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
