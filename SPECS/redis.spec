@@ -36,14 +36,10 @@ License:          BSD
 URL:              http://redis.io
 Source0:          http://download.redis.io/releases/redis-%{version}.tar.gz
 Source1:          %{name}.logrotate
-Source2:          %{name}.init
-Source3:          %{name}.service
-Source4:          %{name}.tmpfiles
-Source5:          %{name}-sentinel.init
-Source6:          %{name}-sentinel.service
-Source7:          %{name}-shutdown
-Source8:          %{name}-limit-systemd
-Source9:          %{name}-limit-init
+Source2:          %{name}.service
+Source3:          %{name}-sentinel.service
+Source4:          %{name}-shutdown
+Source5:          %{name}-limit-systemd
 
 # Update configuration for Fedora
 # https://github.com/antirez/redis/pull/3491 - man pages
