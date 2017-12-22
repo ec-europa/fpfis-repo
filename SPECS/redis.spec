@@ -1,7 +1,7 @@
 %global with_perftools 0
 %global with_redistrib 1
 %global with_pandoc    1
-%global with_tests     1
+%global with_tests     0 
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
