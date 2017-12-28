@@ -1,6 +1,5 @@
 %define vd_rc %{?v_rc:-%{?v_rc}}
 %define    _use_internal_dependency_generator 0
-
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 5.2.1
