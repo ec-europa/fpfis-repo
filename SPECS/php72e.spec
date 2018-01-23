@@ -66,7 +66,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php72e
 Version: 7.2.1
-Release: 1.ius%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
