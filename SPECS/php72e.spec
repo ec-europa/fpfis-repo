@@ -64,7 +64,7 @@
 %endif
 
 Summary: PHP scripting language for creating dynamic web sites
-Name: php72u
+Name: php72e
 Version: 7.2.1
 Release: 1.ius%{?dist}
 # All files licensed under PHP version 3.01, except
