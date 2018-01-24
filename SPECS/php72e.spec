@@ -96,7 +96,9 @@ Source51: opcache-default.blacklist
 
 # Build fixes
 Patch1: php-7.1.7-httpd.patch
+%if 0%{?rhel} < 7
 Patch3: php-7.2.0-autoconf.patch
+%endif
 Patch5: php-7.2.0-includedir.patch
 Patch6: php-5.6.3-embed.patch
 Patch7: php-5.3.0-recode.patch
@@ -146,8 +148,8 @@ Requires: systemd-units
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-BuildRequires:  pkgconfig(libsodium) >= 1.0.9
 %endif
+# Disabled: BuildRequires:  pkgconfig(libsodium) >= 1.0.9
 %{?filter_provides_in: %filter_provides_in %{_libdir}/php/modules/.*\.so$}
 %{?filter_provides_in: %filter_provides_in %{_libdir}/php-zts/modules/.*\.so$}
 %{?filter_provides_in: %filter_provides_in %{_httpd_moddir}/.*\.so$}
