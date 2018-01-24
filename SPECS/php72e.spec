@@ -954,11 +954,13 @@ support for JavaScript Object Notation (JSON) to PHP.
 %setup -q -n php-%{version}
 
 %patch1 -p1 -b .mpmcheck
+%if 0%{?rhel} < 7
+%patch3 -p1 -b .autoconf
+%endif
 %patch5 -p1 -b .includedir
 %patch6 -p1 -b .embed
 %patch7 -p1 -b .recode
 %patch8 -p1 -b .libdb
-
 %patch40 -p1 -b .dlopen
 %patch42 -p1 -b .systzdata
 %patch43 -p1 -b .headers
