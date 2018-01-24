@@ -1500,7 +1500,7 @@ for mod in pgsql odbc ldap snmp xmlrpc imap json \
     sqlite3 \
     enchant phar fileinfo intl \
     tidy pdo_dblib pspell curl wddx \
-    sodium \
+#    sodium \
     posix shmop sysvshm sysvsem sysvmsg recode xml \
     ; do
     case $mod in
@@ -1763,7 +1763,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/php.d/opcache-default.blacklist
 %config(noreplace) %{_sysconfdir}/php-zts.d/opcache-default.blacklist
 %files json -f files.json
-%files sodium -f files.sodium
+#%files sodium -f files.sodium
 
 
 %changelog
