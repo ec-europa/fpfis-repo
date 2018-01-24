@@ -1088,6 +1088,7 @@ mkdir Zend && cp ../Zend/zend_{language,ini}_{parser,scanner}.[ch] Zend
 # openssl: for PHAR_SIG_OPENSSL
 # zlib: used by image
 
+aclocal && libtoolize --force && autoreconf
 ln -sf ../configure
 %configure \
     --cache-file=../config.cache \
