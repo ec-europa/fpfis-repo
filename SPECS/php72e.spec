@@ -145,6 +145,7 @@ Requires: systemd-units
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
+BuildRequires:  pkgconfig(libsodium) >= 1.0.9
 %endif
 %{?filter_provides_in: %filter_provides_in %{_libdir}/php/modules/.*\.so$}
 %{?filter_provides_in: %filter_provides_in %{_libdir}/php-zts/modules/.*\.so$}
@@ -951,7 +952,6 @@ Summary: Wrapper for the Sodium cryptographic library
 # All files licensed under PHP version 3.0.1
 License: PHP
 Group: System Environment/Libraries
-BuildRequires:  pkgconfig(libsodium) >= 1.0.9
 
 Requires: php-common%{?_isa} = %{version}-%{release}
 Provides:  php-pecl-libsodium         = %{version}
