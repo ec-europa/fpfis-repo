@@ -1,6 +1,5 @@
 #!/bin/bash
 [ ! -x $(which docker) ] && echo "Docker must be installed" && exit 1
-
 set -e
 
 [ -z $1 ] && echo "Please specify a distro (6/7)"
@@ -19,16 +18,15 @@ else
 fi
 
 echo "Using container name : ${CONTAINER}"
-
 [ ! -d SOURCES/${PACKAGE} ] && mkdir SOURCES/${PACKAGE}
 
 # reset log files :
-cat /dev/null > RPMS/build.log
-cat /dev/null > RPMS/root.log
-cat /dev/null > RPMS/trace.log
-cat /dev/null > SRPMS/build.log
-cat /dev/null > SRPMS/root.log
-cat /dev/null > SRPMS/trace.log
+> RPMS/build.log
+> RPMS/root.log
+> RPMS/trace.log
+> SRPMS/build.log
+> SRPMS/root.log
+> SRPMS/trace.log
 
 # Pull the image if missing :
 if [ -z $(docker images -q fpfis/mock) ]; then
@@ -50,19 +48,11 @@ if [ "$(docker inspect -f {{.State.Running}}  ${CONTAINER})" != "true" ]; then
 fi
 
 echo "Building ${PACKAGE}..."
-
 echo "Downloading dependencies ..."
-
 docker exec ${CONTAINER} spectool -g -C /mock/build/SOURCES/${PACKAGE} /mock/build/SPECS/${SPECFILE}
-
 echo "Building Source RPM ..."
-
 docker exec -u ${UID} ${CONTAINER}  /usr/bin/mock -r fpfis-${EL}-x86_64 --spec=/mock/build/SPECS/${SPECFILE} --sources=/mock/build/SOURCES/${PACKAGE} --resultdir=/mock/build/SRPMS --buildsrpm
-
 echo "Building RPM ..."
-
 docker exec -u ${UID} ${CONTAINER} /usr/bin/mock --clean -r fpfis-${EL}-x86_64  -D "dist .${DIST}" --resultdir=/mock/build/RPMS --rebuild /mock/build/SRPMS/$(ls -1utr SRPMS/|grep ^${PACKAGE}-.*src\.rpm$|head -1)
-
 echo "Stop Container ..."
-
 docker stop ${CONTAINER}
