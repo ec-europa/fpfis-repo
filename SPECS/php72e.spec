@@ -137,7 +137,6 @@ BuildRequires: libzip-devel >= 0.11
 BuildRequires: systemtap-sdt-devel
 %endif
 %if 0%{?rhel} >= 7
-BuildRequires: libargon2-devel
 BuildRequires: perl-interpreter
 BuildRequires: systemd-units
 BuildRequires: systemd-devel
@@ -1132,7 +1131,6 @@ ln -sf ../configure
     --with-libxml-dir=%{_prefix} \
     --with-system-tzdata \
     --with-mhash \
-    --with-password-argon2 \
 %if %{with_dtrace}
     --enable-dtrace \
 %endif
