@@ -1062,9 +1062,6 @@ touch configure.ac
 ./buildconf --force
 %endif
 
-# Autoreconf
-autoreconf
-
 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign"
 export CFLAGS
 
