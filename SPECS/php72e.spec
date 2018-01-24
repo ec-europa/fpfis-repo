@@ -1056,6 +1056,8 @@ cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m
 libtoolize --force --copy
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >build/libtool.m4
 
+autoreconf --force --install
+
 # Regenerate configure scripts (patches change config.m4's)
 touch configure.ac
 %if 0%{?rhel} >= 7
