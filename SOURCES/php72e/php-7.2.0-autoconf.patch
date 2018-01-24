@@ -1,5 +1,5 @@
---- build/buildcheck.sh.ok	2018-01-24 13:55:10.602429830 +0100
-+++ build/buildcheck.sh	2018-01-24 13:55:47.662322378 +0100
+--- a/build/buildcheck.sh	2018-01-24 13:55:10.602429830 +0100
++++ b/build/buildcheck.sh	2018-01-24 13:55:47.662322378 +0100
 @@ -28,18 +28,18 @@
    PHP_AUTOCONF='autoconf'
  fi
