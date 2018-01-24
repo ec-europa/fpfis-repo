@@ -1079,7 +1079,6 @@ build() {
 # upstream uses GNU Bison 2.3. Workaround:
 mkdir Zend && cp ../Zend/zend_{language,ini}_{parser,scanner}.[ch] Zend
 
-autoconf -i
 # Always static:
 # date, ereg, filter, libxml, reflection, spl: not supported
 # hash: for PHAR_SIG_SHA256 and PHAR_SIG_SHA512
@@ -1088,6 +1087,7 @@ autoconf -i
 # pcntl, readline: only used by CLI sapi
 # openssl: for PHAR_SIG_OPENSSL
 # zlib: used by image
+autoconf
 
 ln -sf ../configure
 %configure \
