@@ -1062,6 +1062,9 @@ touch configure.ac
 ./buildconf --force
 %endif
 
+# Autoreconf
+autoreconf
+
 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign"
 export CFLAGS
 
@@ -1088,7 +1091,6 @@ mkdir Zend && cp ../Zend/zend_{language,ini}_{parser,scanner}.[ch] Zend
 # openssl: for PHAR_SIG_OPENSSL
 # zlib: used by image
 
-aclocal && libtoolize --force && autoreconf
 ln -sf ../configure
 %configure \
     --cache-file=../config.cache \
