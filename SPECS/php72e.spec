@@ -1057,8 +1057,8 @@ libtoolize --force --copy
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >build/libtool.m4
 
 # Regenerate configure scripts (patches change config.m4's)
-%if 0%{?rhel} >= 7
 touch configure.ac
+%if 0%{?rhel} >= 7
 ./buildconf --force
 %endif
 
@@ -1087,7 +1087,6 @@ mkdir Zend && cp ../Zend/zend_{language,ini}_{parser,scanner}.[ch] Zend
 # pcntl, readline: only used by CLI sapi
 # openssl: for PHAR_SIG_OPENSSL
 # zlib: used by image
-autoconf
 
 ln -sf ../configure
 %configure \
