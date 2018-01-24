@@ -96,9 +96,6 @@ Source51: opcache-default.blacklist
 
 # Build fixes
 Patch1: php-7.1.7-httpd.patch
-%if 0%{?rhel} < 7
-Patch3: php-7.2.0-autoconf.patch
-%endif
 Patch5: php-7.2.0-includedir.patch
 Patch6: php-5.6.3-embed.patch
 Patch7: php-5.3.0-recode.patch
@@ -365,7 +362,7 @@ package and the php-cli package.
 %package devel
 Group: Development/Libraries
 Summary: Files needed for building PHP extensions
-Requires: php-cli%{?_isa} = %{version}-%{release}, autoconf, automake
+Requires: php-cli%{?_isa} = %{version}-%{release}, automake
 Requires: pcre-devel%{?_isa}
 %if %{with_zts}
 Provides: php-zts-devel = %{version}-%{release}
@@ -954,9 +951,6 @@ support for JavaScript Object Notation (JSON) to PHP.
 %setup -q -n php-%{version}
 
 %patch1 -p1 -b .mpmcheck
-%if 0%{?rhel} < 7
-%patch3 -p1 -b .autoconf
-%endif
 %patch5 -p1 -b .includedir
 %patch6 -p1 -b .embed
 %patch7 -p1 -b .recode
@@ -1083,8 +1077,10 @@ libtoolize --force --copy
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >build/libtool.m4
 
 # Regenerate configure scripts (patches change config.m4's)
+%if 0%{?rhel} >= 7
 touch configure.ac
 ./buildconf --force
+%endif
 
 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign"
 export CFLAGS
