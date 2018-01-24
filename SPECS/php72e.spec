@@ -98,7 +98,6 @@ Source51: opcache-default.blacklist
 Patch1: php-7.1.7-httpd.patch
 Patch5: php-7.2.0-includedir.patch
 Patch6: php-5.6.3-embed.patch
-Patch7: php-5.3.0-recode.patch
 Patch8: php-7.2.0-libdb.patch
 
 # Functional changes
@@ -872,23 +871,6 @@ The php-pspell package contains a dynamic shared object that will add
 support for using the pspell library to PHP.
 
 
-%package recode
-Summary: A module for PHP applications for using the recode library
-Group: System Environment/Libraries
-# All files licensed under PHP version 3.01
-License: PHP
-Requires: php-common%{?_isa} = %{version}-%{release}
-BuildRequires: recode-devel
-Provides: php-recode = %{version}-%{release}
-Provides: php-recode%{?_isa} = %{version}-%{release}
-Conflicts: php-recode < %{version}-%{release}
-
-
-%description recode
-The php-recode package contains a dynamic shared object that will add
-support for using the recode library to PHP.
-
-
 %package intl
 Summary: Internationalization extension for PHP applications
 Group: System Environment/Libraries
@@ -952,7 +934,6 @@ support for JavaScript Object Notation (JSON) to PHP.
 %patch1 -p1 -b .mpmcheck
 %patch5 -p1 -b .includedir
 %patch6 -p1 -b .embed
-%patch7 -p1 -b .recode
 %patch8 -p1 -b .libdb
 %patch40 -p1 -b .dlopen
 %patch42 -p1 -b .systzdata
@@ -1221,7 +1202,6 @@ build --libdir=%{_libdir}/php \
       --enable-intl=shared \
       --with-icu-dir=%{_prefix} \
       --with-enchant=shared,%{_prefix} \
-      --with-recode=shared,%{_prefix}
 popd
 
 without_shared="--without-gd \
@@ -1349,7 +1329,6 @@ build --includedir=%{_includedir}/php-zts \
       --enable-intl=shared \
       --with-icu-dir=%{_prefix} \
       --with-enchant=shared,%{_prefix} \
-      --with-recode=shared,%{_prefix}
 popd
 
 # Build a special thread-safe Apache SAPI
@@ -1497,7 +1476,7 @@ for mod in pgsql odbc ldap snmp xmlrpc imap json \
     enchant phar fileinfo intl \
     tidy pdo_dblib pspell curl wddx \
 #    sodium \
-    posix shmop sysvshm sysvsem sysvmsg recode xml \
+    posix shmop sysvshm sysvsem sysvmsg xml \
     ; do
     case $mod in
       opcache)
@@ -1749,7 +1728,6 @@ exit 0
 %files pspell -f files.pspell
 %files intl -f files.intl
 %files process -f files.process
-%files recode -f files.recode
 %if %{with_firebird}
 %files interbase -f files.interbase
 %endif
