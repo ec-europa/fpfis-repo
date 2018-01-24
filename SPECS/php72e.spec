@@ -96,6 +96,7 @@ Source51: opcache-default.blacklist
 
 # Build fixes
 Patch1: php-7.1.7-httpd.patch
+Patch3: php-7.2.0-autoconf.patch
 Patch5: php-7.2.0-includedir.patch
 Patch6: php-5.6.3-embed.patch
 Patch7: php-5.3.0-recode.patch
