@@ -950,25 +950,6 @@ Conflicts: php-json < %{version}-%{release}
 The php-json package provides an extension that will add
 support for JavaScript Object Notation (JSON) to PHP.
 
-%package sodium
-Summary: Wrapper for the Sodium cryptographic library
-# All files licensed under PHP version 3.0.1
-License: PHP
-Group: System Environment/Libraries
-
-Requires: php-common%{?_isa} = %{version}-%{release}
-Provides:  php-pecl-libsodium         = %{version}
-Provides:  php-pecl(libsodium)         = %{version}
-Provides:  php-pecl(libsodium)%{?_isa} = %{version}
-Provides:  %{name}-pecl(libsodium)         = %{version}
-Provides:  %{name}-pecl(libsodium)%{?_isa} = %{version}
-Conflicts: php-sodium < %{version}-%{release}
-
-%description sodium
-The php-sodium package provides a simple,
-low-level PHP extension for the libsodium cryptographic library.
-
-
 %prep
 %setup -q -n php-%{version}
 
@@ -1241,7 +1222,6 @@ build --libdir=%{_libdir}/php \
       --enable-posix=shared \
       --with-unixODBC=shared,%{_prefix} \
       --enable-fileinfo=shared \
-      --with-sodium=shared \
       --enable-intl=shared \
       --with-icu-dir=%{_prefix} \
       --with-enchant=shared,%{_prefix} \
@@ -1253,7 +1233,6 @@ without_shared="--without-gd \
       --disable-opcache \
       --disable-json \
       --disable-xmlreader --disable-xmlwriter \
-      --without-sodium \
       --without-sqlite3 --disable-phar --disable-fileinfo \
       --without-pspell --disable-wddx \
       --without-curl --disable-posix --disable-xml \
@@ -1371,7 +1350,6 @@ build --includedir=%{_includedir}/php-zts \
       --enable-posix=shared \
       --with-unixODBC=shared,%{_prefix} \
       --enable-fileinfo=shared \
-      --with-sodium=shared \
       --enable-intl=shared \
       --with-icu-dir=%{_prefix} \
       --with-enchant=shared,%{_prefix} \
