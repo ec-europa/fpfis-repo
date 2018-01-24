@@ -136,7 +136,7 @@ BuildRequires: libzip-devel >= 0.11
 %if %{with_dtrace}
 BuildRequires: systemtap-sdt-devel
 %endif
-%if 0%{?rhel} < 7
+%if 0%{?rhl} < 7
 BuildRequires: libargon2-devel
 BuildRequires: perl-interpreter
 BuildRequires: systemd-units
