@@ -128,7 +128,7 @@ BuildRequires: libstdc++-devel, openssl-devel
 BuildRequires: sqlite-devel >= 3.6.0
 BuildRequires: zlib-devel, smtpdaemon, libedit-devel
 BuildRequires: pcre-devel >= 6.6
-BuildRequires: bzip2, perl-interpreter, libtool >= 1.4.3, gcc-c++
+BuildRequires: bzip2, libtool >= 1.4.3, gcc-c++
 BuildRequires: libtool-ltdl-devel
 %if %{with_libzip}
 BuildRequires: libzip-devel >= 0.11
@@ -136,7 +136,16 @@ BuildRequires: libzip-devel >= 0.11
 %if %{with_dtrace}
 BuildRequires: systemtap-sdt-devel
 %endif
+%if 0%{?rhel} < 7
 BuildRequires: libargon2-devel
+BuildRequires: perl-interpreter
+BuildRequires: systemd-units
+BuildRequires: systemd-devel
+Requires: systemd-units
+Requires(post): systemd-units
+Requires(preun): systemd-units
+Requires(postun): systemd-units
+%endif
 %{?filter_provides_in: %filter_provides_in %{_libdir}/php/modules/.*\.so$}
 %{?filter_provides_in: %filter_provides_in %{_libdir}/php-zts/modules/.*\.so$}
 %{?filter_provides_in: %filter_provides_in %{_httpd_moddir}/.*\.so$}
@@ -222,12 +231,6 @@ Summary: PHP FastCGI Process Manager
 BuildRequires: libacl-devel
 Requires: php-common%{?_isa} = %{version}-%{release}
 Requires(pre): /usr/sbin/useradd
-BuildRequires: systemd-units
-BuildRequires: systemd-devel
-Requires: systemd-units
-Requires(post): systemd-units
-Requires(preun): systemd-units
-Requires(postun): systemd-units
 # php engine for Apache httpd webserver
 Provides: php(httpd)
 
