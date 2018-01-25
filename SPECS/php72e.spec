@@ -1052,6 +1052,14 @@ sed -e '/opcache.huge_code_pages/s/0/1/' -i 10-opcache.ini
 
 
 %build
+# Force auto*conf268 for rhel 6
+%if 0%{?rhel} < 7
+ln -svfn /usr/bin/autoconf268 /usr/bin/autoconf
+ln -svfn /usr/bin/autoreconf268 /usr/bin/autoreconf
+mv -f /usr/bin/autoconf268 /usr/bin/autoconf
+mv -f /usr/bin/autoreconf268 /usr/bin/autoreconf
+%endif
+
 # aclocal workaround - to be improved
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >>aclocal.m4
 
@@ -1059,10 +1067,6 @@ cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m
 libtoolize --force --copy
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >build/libtool.m4
 
-%if 0%{?rhel} < 7
-ln -sfn /usr/bin/autoconf268 /usr/bin/autoconf
-ln -sfn /usr/bin/autoreconf268 /usr/bin/autoreconf2
-%endif
 # Regenerate configure scripts (patches change config.m4's)
 touch configure.ac
 ./buildconf --force
