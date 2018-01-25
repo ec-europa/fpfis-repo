@@ -62,19 +62,6 @@ Conflicts:      php-pecl-%{pecl_name} < %{version}
 %description
 This extension provides methods to interact with gnupg
 
-%package devel
-Summary:       gnupg developer files (header)
-Group:         Development/Libraries
-Requires:      %{name}%{?_isa} = %{version}-%{release}
-Requires:      %{php_base}-devel%{?_isa}
-Provides:      php-pecl-%{pecl_name}-devel = %{version}
-Provides:      php-pecl-%{pecl_name}-devel%{?_isa} = %{version}
-Conflicts:     php-pecl-%{pecl_name}-devel < %{version}
-
-
-%description devel
-These are the files needed to compile programs using gnupg.
-
 
 %prep
 %setup -qc
@@ -150,25 +137,14 @@ fi
 
 
 %files
-%license NTS/LICENSE
-%doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{pecl_name}.xml
-
-%config(noreplace) %{php_inidir}/%{ini_name}
+%doc ZTS/LICENSE ZTS/README
 %{php_extdir}/%{pecl_name}.so
+%{pecl_xmldir}/%{pecl_name}.xml
+%config(noreplace) %verify(not md5 mtime size) %{php_inidir}/%{ini_name}
 
 %if %{with_zts}
 %{php_ztsextdir}/%{pecl_name}.so
-%config(noreplace) %{php_ztsinidir}/%{ini_name}
-%endif
-
-
-%files devel
-%doc %{pecl_testdir}/%{pecl_name}
-%{php_incldir}/ext/%{pecl_name}
-
-%if %{with_zts}
-%{php_ztsincldir}/ext/%{pecl_name}
+%config(noreplace) %verify(not md5 mtime size) %{php_ztsinidir}/%{ini_name}
 %endif
 
 %changelog
