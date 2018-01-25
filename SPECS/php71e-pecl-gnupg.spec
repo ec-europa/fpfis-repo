@@ -104,27 +104,39 @@ popd
 
 
 %install
-# Install the NTS stuff
-make -C NTS install INSTALL_ROOT=%{buildroot}
-install -D -m 644 %{SOURCE1} %{buildroot}%{php_inidir}/%{ini_name}
+
+%{__make} install INSTALL_ROOT=%{buildroot} -C NTS
+
+# Install XML package description
+install -Dpm 0644 package.xml %{buildroot}%{pecl_xmldir}/%{pecl_name}.xml
+
+# Install config file
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{php_inidir}/%{ini_name}
 
 %if %{with_zts}
-# Install the ZTS stuff
-make -C ZTS install INSTALL_ROOT=%{buildroot}
-install -D -m 644 %{SOURCE1} %{buildroot}%{php_ztsinidir}/%{ini_name}
+%{__make} install INSTALL_ROOT=%{buildroot} -C ZTS
+
+# Install config file
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
-# Install the package XML file
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{pecl_name}.xml
+rm -rf %{buildroot}%{php_incldir}/ext/%{pecl_name}/
+%if %{with_zts}
+rm -rf %{buildroot}%{php_ztsincldir}/ext/%{pecl_name}/
+%endif
 
-# Test & Documentation
-cd NTS
-for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
-done
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
+%check
+# simple module load test
+php --no-php-ini \
+    --define extension_dir=%{buildroot}%{php_extdir} \
+    --define extension=%{pecl_name}.so \
+    --modules | grep %{pecl_name}
+%if %{with_zts}
+zts-php --no-php-ini \
+    --define extension_dir=%{buildroot}%{php_ztsextdir} \
+    --define extension=%{pecl_name}.so \
+    --modules | grep %{pecl_name}
+%endif
 
 %post
 %{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
