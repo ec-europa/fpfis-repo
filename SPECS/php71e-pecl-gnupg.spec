@@ -203,5 +203,5 @@ fi
 %endif
 
 %changelog
-* Mon Jan 25 2018 Gregory Boddin <gregory@siwhine.net> - 1.4.0
+* Thu Jan 25 2018 Gregory Boddin <gregory@siwhine.net> - 1.4.0
 - Initial module import
