@@ -139,37 +139,6 @@ for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
-
-%check
-pushd NTS
-%{__php} -n \
-   -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-   -m | grep 'gnupg'
-
-# Upstream test suite for NTS extension
-TEST_PHP_EXECUTABLE=%{__php} \
-TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php
-popd
-
-%if %{with_zts}
-pushd ZTS
-%{__ztsphp} -n \
-   -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-   -m | grep 'gnupg'
-
-# Upstream test suite for ZTS extension
-TEST_PHP_EXECUTABLE=%{__ztsphp} \
-TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php
-popd
-%endif
-
-
 %post
 %{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
 
