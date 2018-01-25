@@ -84,7 +84,7 @@ sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 pushd NTS
 
 # Sanity check, really often broken
-extver=$(sed -n '/#define PHP_gnupg_VERSION/{s/.* "//;s/".*$//;p}' php_apc.h)
+extver=$(sed -n '/#define PHP_GNUPG_VERSION/{s/.* "//;s/".*$//;p}' php_gnupg.h)
 if test "x${extver}" != "x%{version}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}.
    exit 1
