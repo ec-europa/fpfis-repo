@@ -18,6 +18,7 @@ Summary:        Wrapper around the gpgme library
 Version:        1.4.0
 Release:        1%{?dist}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
+Source1:        %{pecl_name}.ini
 
 License:        PHP
 Group:          Development/Languages
