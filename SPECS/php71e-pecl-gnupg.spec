@@ -59,10 +59,7 @@ Conflicts:      php-pecl-%{pecl_name} < %{version}
 
 
 %description
-gnupg is userland caching: APC stripped of opcode caching.
-
-gnupg only supports userland caching of variables.
-
+This extension provides methods to interact with gnupg
 
 %package devel
 Summary:       gnupg developer files (header)
@@ -76,21 +73,6 @@ Conflicts:     php-pecl-%{pecl_name}-devel < %{version}
 
 %description devel
 These are the files needed to compile programs using gnupg.
-
-
-%package panel
-Summary:       gnupg control panel
-Group:         Applications/Internet
-BuildArch:     noarch
-Requires:      %{name} = %{version}-%{release}
-Requires:      mod_%{php_base}
-Requires:      %{php_base}-gd
-Provides:      gnupg-panel = %{version}
-Conflicts:     gnupg-panel < %{version}
-
-
-%description panel
-This extension provides methods to interact with gnupg
 
 
 %prep
