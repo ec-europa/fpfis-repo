@@ -121,6 +121,7 @@ Patch47: php-5.6.3-phpinfo.patch
 Patch300: php-5.6.3-datetests.patch
 
 
+BuildRequires: autoconf268
 BuildRequires: bzip2-devel, curl-devel >= 7.9
 BuildRequires: pam-devel
 BuildRequires: libstdc++-devel, openssl-devel
