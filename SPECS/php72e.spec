@@ -121,7 +121,9 @@ Patch47: php-5.6.3-phpinfo.patch
 Patch300: php-5.6.3-datetests.patch
 
 
+%if 0%{?rhel} < 7
 BuildRequires: autoconf268
+%endif
 BuildRequires: bzip2-devel, curl-devel >= 7.9
 BuildRequires: pam-devel
 BuildRequires: libstdc++-devel, openssl-devel
@@ -1057,13 +1059,9 @@ cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m
 libtoolize --force --copy
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >build/libtool.m4
 
-autoreconf --force --install
-
 # Regenerate configure scripts (patches change config.m4's)
 touch configure.ac
-%if 0%{?rhel} >= 7
 ./buildconf --force
-%endif
 
 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign"
 export CFLAGS
