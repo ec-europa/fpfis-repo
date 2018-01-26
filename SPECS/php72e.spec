@@ -122,7 +122,6 @@ Patch300: php-5.6.3-datetests.patch
 
 %if 0%{?rhel} < 7
 BuildRequires: autoconf268
-BuildConflicts: autoconf
 %else
 BuildRequires: autoconf
 %endif
@@ -1063,7 +1062,7 @@ cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m
 
 # Regenerate configure scripts (patches change config.m4's)
 touch configure.ac
-./buildconf --force
+PHP_AUTOCONF=autoconf268 ./buildconf --force
 
 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign"
 export CFLAGS
