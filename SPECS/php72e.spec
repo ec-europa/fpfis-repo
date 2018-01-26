@@ -120,9 +120,11 @@ Patch47: php-5.6.3-phpinfo.patch
 # Factory is droped from system tzdata
 Patch300: php-5.6.3-datetests.patch
 
-
 %if 0%{?rhel} < 7
 BuildRequires: autoconf268
+BuildConflicts: autoconf
+%else
+BuildRequires: autoconf
 %endif
 BuildRequires: bzip2-devel, curl-devel >= 7.9
 BuildRequires: pam-devel
