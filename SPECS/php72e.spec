@@ -1053,6 +1053,9 @@ sed -e '/opcache.huge_code_pages/s/0/1/' -i 10-opcache.ini
 
 
 %build
+export PHP_AUTOCONF=autoconf268
+export AUTOHEADER=autoheader268
+
 # aclocal workaround - to be improved
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >>aclocal.m4
 
@@ -1062,7 +1065,7 @@ cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m
 
 # Regenerate configure scripts (patches change config.m4's)
 touch configure.ac
-PHP_AUTOCONF=autoconf268 ./buildconf --force
+./buildconf --force
 
 CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Wno-pointer-sign"
 export CFLAGS
