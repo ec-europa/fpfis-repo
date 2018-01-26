@@ -1061,6 +1061,12 @@ cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m
 libtoolize --force --copy
 cat `aclocal --print-ac-dir`/{libtool,ltoptions,ltsugar,ltversion,lt~obsolete}.m4 >build/libtool.m4
 
+# Force auto*conf268 for rhel 6
+%if 0%{?rhel} < 7
+update-alternatives --install /usr/bin/autoconf autoconf /usr/bin/autoconf268 1
+update-alternatives --install /usr/bin/autoreconf autoconf /usr/bin/autoreconf268 1
+%endif
+
 # Regenerate configure scripts (patches change config.m4's)
 touch configure.ac
 ./buildconf --force
