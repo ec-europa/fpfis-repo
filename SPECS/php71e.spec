@@ -80,7 +80,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php71e
-Version: 7.1.13
+Version: 7.1.14
 Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -121,8 +121,6 @@ Patch42: php-7.1.0-systzdata-v14.patch
 Patch43: php-5.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
 Patch45: php-5.6.3-ldap_r.patch
-# Make php_config.h constant across builds
-Patch46: php-7.0.0-fixheader.patch
 # drop "Configure command" from phpinfo output
 Patch47: php-5.6.3-phpinfo.patch
 Patch48: php-7.1.9-openssl-load-config.patch
@@ -994,7 +992,6 @@ support for JavaScript Object Notation (JSON) to PHP.
 %if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
 %patch45 -p1 -b .ldap_r
 %endif
-%patch46 -p1 -b .fixheader
 %patch47 -p1 -b .phpinfo
 %patch48 -p1 -b .loadconf
 
@@ -1852,6 +1849,9 @@ fi
 
 
 %changelog
+* Sat Feb 10 2018 Gregory Boddin <gregory@siwhine.net> - 7.1.14-1
+- Latest upstream
+
 * Tue Jan 30 2018 Gregory Boddin <gregory@siwhine.net> - 7.1.13-1
 - Latest upstream
 
