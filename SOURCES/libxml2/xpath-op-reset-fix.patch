@@ -1,0 +1,104 @@
+From e22a83b1d095da25ce05e1a2d9f263f41d11c68 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Thu, 25 May 2017 01:18:36 +0200
+Subject: Stop using XPATH_OP_RESET
+
+It only sets the context node to NULL which doesn't seem useful and can
+even cause bugs like bug #795299:
+
+https://bugzilla.gnome.org/show_bug.cgi?id=795299
+---
+ xpath.c | 37 +++----------------------------------
+ 1 file changed, 3 insertions(+), 34 deletions(-)
+
+diff --git xpath.c xpath.c
+index bd09364..601763e 100644
+--- a/xpath.c
++++ b/xpath.c
+@@ -868,15 +868,14 @@ typedef enum {
+     XPATH_OP_UNION,
+     XPATH_OP_ROOT,
+     XPATH_OP_NODE,
+-    XPATH_OP_RESET, /* 10 */
+     XPATH_OP_COLLECT,
+-    XPATH_OP_VALUE, /* 12 */
++    XPATH_OP_VALUE, /* 11 */
+     XPATH_OP_VARIABLE,
+     XPATH_OP_FUNCTION,
+     XPATH_OP_ARG,
+     XPATH_OP_PREDICATE,
+-    XPATH_OP_FILTER, /* 17 */
+-    XPATH_OP_SORT /* 18 */
++    XPATH_OP_FILTER, /* 16 */
++    XPATH_OP_SORT /* 17 */
+ #ifdef LIBXML_XPTR_ENABLED
+     ,XPATH_OP_RANGETO
+ #endif
+@@ -1526,8 +1525,6 @@ xmlXPathDebugDumpStepOp(FILE *output, xmlXPathCompExprPtr comp,
+ 	     fprintf(output, "ROOT"); break;
+         case XPATH_OP_NODE:
+ 	     fprintf(output, "NODE"); break;
+-        case XPATH_OP_RESET:
+-	     fprintf(output, "RESET"); break;
+         case XPATH_OP_SORT:
+ 	     fprintf(output, "SORT"); break;
+         case XPATH_OP_COLLECT: {
+@@ -10735,7 +10732,6 @@ xmlXPathCompPathExpr(xmlXPathParserContextPtr ctxt) {
+ 
+ 	    PUSH_LONG_EXPR(XPATH_OP_COLLECT, AXIS_DESCENDANT_OR_SELF,
+ 		    NODE_TEST_TYPE, NODE_TYPE_NODE, NULL, NULL);
+-	    PUSH_UNARY_EXPR(XPATH_OP_RESET, ctxt->comp->last, 1, 0);
+ 
+ 	    xmlXPathCompRelativeLocationPath(ctxt);
+ 	} else if (CUR == '/') {
+@@ -12779,15 +12775,6 @@ xmlXPathCompOpEvalFirst(xmlXPathParserContextPtr ctxt,
+ 	    valuePush(ctxt, xmlXPathCacheNewNodeSet(ctxt->context,
+ 		ctxt->context->node));
+             return (total);
+-        case XPATH_OP_RESET:
+-            if (op->ch1 != -1)
+-                total += xmlXPathCompOpEval(ctxt, &comp->steps[op->ch1]);
+-	    CHECK_ERROR0;
+-            if (op->ch2 != -1)
+-                total += xmlXPathCompOpEval(ctxt, &comp->steps[op->ch2]);
+-	    CHECK_ERROR0;
+-            ctxt->context->node = NULL;
+-            return (total);
+         case XPATH_OP_COLLECT:{
+                 if (op->ch1 == -1)
+                     return (total);
+@@ -12918,15 +12905,6 @@ xmlXPathCompOpEvalLast(xmlXPathParserContextPtr ctxt, xmlXPathStepOpPtr op,
+ 	    valuePush(ctxt, xmlXPathCacheNewNodeSet(ctxt->context,
+ 		ctxt->context->node));
+             return (total);
+-        case XPATH_OP_RESET:
+-            if (op->ch1 != -1)
+-                total += xmlXPathCompOpEval(ctxt, &comp->steps[op->ch1]);
+-	    CHECK_ERROR0;
+-            if (op->ch2 != -1)
+-                total += xmlXPathCompOpEval(ctxt, &comp->steps[op->ch2]);
+-	    CHECK_ERROR0;
+-            ctxt->context->node = NULL;
+-            return (total);
+         case XPATH_OP_COLLECT:{
+                 if (op->ch1 == -1)
+                     return (0);
+@@ -13457,15 +13435,6 @@ xmlXPathCompOpEval(xmlXPathParserContextPtr ctxt, xmlXPathStepOpPtr op)
+ 	    valuePush(ctxt, xmlXPathCacheNewNodeSet(ctxt->context,
+ 		ctxt->context->node));
+             return (total);
+-        case XPATH_OP_RESET:
+-            if (op->ch1 != -1)
+-                total += xmlXPathCompOpEval(ctxt, &comp->steps[op->ch1]);
+-	    CHECK_ERROR0;
+-            if (op->ch2 != -1)
+-                total += xmlXPathCompOpEval(ctxt, &comp->steps[op->ch2]);
+-	    CHECK_ERROR0;
+-            ctxt->context->node = NULL;
+-            return (total);
+         case XPATH_OP_COLLECT:{
+                 if (op->ch1 == -1)
+                     return (total);
+-- 
+cgit v0.12
+

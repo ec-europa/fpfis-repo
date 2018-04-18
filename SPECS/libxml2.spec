@@ -16,9 +16,11 @@ BuildRequires: zlib-devel
 BuildRequires: pkgconfig
 BuildRequires: xz-devel
 URL: http://xmlsoft.org/
+
 Patch0: libxml2-multilib.patch
 Patch1: libxml2-2.9.0-do-not-check-crc.patch
-
+Patch2: xpath-op-reset-fix.patch
+ 
 %description
 This library allows to manipulate XML files. It includes support
 to read, modify and write XML and HTML files. There is DTDs support
@@ -100,6 +102,7 @@ at parse time or later once the document has been modified.
 %patch0 -p1
 # workaround for #877567 - Very weird bug gzip decompression bug in "recent" libxml2 versions
 %patch1 -p1 -b .do-not-check-crc
+%patch2 -p1 
 
 mkdir py3doc
 cp doc/*.py py3doc
@@ -211,6 +214,9 @@ rm -fr %{buildroot}
 
 
 %changelog
+* Wed Apr 18 2018 Gregory Boddin <gregory@siwhine.net> - 2.9.3-5
+- Fix xpath-op-reset issue in libxml
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.9.3-4
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
