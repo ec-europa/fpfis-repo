@@ -100,7 +100,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{real_name}%{?ius_suffix}
-Version: 5.6.34
+Version: 5.6.38
 Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1821,6 +1821,9 @@ fi
 
 
 %changelog
+* Mon Sep 17 2018 Gregory Boddin <gregory@siwhine.net> - 5.6.38-1
+- Latest upstream
+
 * Sun Mar 11 2018 Gregory Boddin <gregory@siwhine.net> - 5.6.34-1
 - Latest upstream
 
