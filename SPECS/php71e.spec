@@ -115,7 +115,7 @@ Patch7: php-5.3.0-recode.patch
 Patch8: php-7.0.2-libdb.patch
 
 # Functional changes
-Patch40: php-7.1.3-dlopen.patch
+Patch40: php-7.1.16-dlopen.patch
 Patch42: php-7.1.0-systzdata-v14.patch
 # See http://bugs.php.net/53436
 Patch43: php-5.4.0-phpize.patch
