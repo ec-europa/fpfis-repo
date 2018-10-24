@@ -80,7 +80,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php71e
-Version: 7.1.15
+Version: 7.1.23
 Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1849,6 +1849,9 @@ fi
 
 
 %changelog
+* Wed Oct 24 2018 Gregory Boddin <gregory@siwhine.net> - 7.1.23-1
+- Latest upstream + fedora patch update
+
 * Sun Mar 11 2018 Gregory Boddin <gregory@siwhine.net> - 7.1.15-1
 - Latest upstream + fedora patch update
 
